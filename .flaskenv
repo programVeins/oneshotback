@@ -1,0 +1,2 @@
+FLASK_APP=oneshot.py
+FLASK_ENV=development

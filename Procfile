@@ -1,0 +1,1 @@
+web: gunicorn oneshot:app
