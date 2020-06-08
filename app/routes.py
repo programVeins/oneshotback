@@ -57,8 +57,8 @@ def logout():
 
 @app.route('/api/accountdeets', methods=['GET','POST'])
 def accountdeets():
-    if not current_user.is_authenticated:
-        print("User not authenticated yet")
+    if not current_user.is_active:
+        print("User not logged in yet")
         return jsonify({"auth": -1})
     else:
         currentUserEmail = request.json["CUE"]['currentUserEmail']
