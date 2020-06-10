@@ -13,6 +13,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     contactnum = db.Column(db.Integer, index=True, unique=True)
+    hasPaid = db.Column(db.Integer, index=True, unique=False)
     
     def genRefID(self):
         self.torefID = refGen(8)

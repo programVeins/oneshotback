@@ -8,10 +8,11 @@ from flask_login import current_user, login_user, logout_user
 @app.route('/api/postsignup', methods=['GET','POST'])
 def postSignUp():
     UD = request.json["userData"]
-    u = User(firstname = UD["firstname"], lastname = UD["lastname"], email = UD["email"], contactnum = UD["contactnum"], fromrefID = UD["fromrefID"])
+    u = User(firstname = UD["firstname"], lastname = UD["lastname"], email = UD["email"], contactnum = UD["contactnum"], fromrefID = UD["fromrefID"], hasPaid = 0)
     a = validate(u.email, u.contactnum, u.fromrefID)
     print(u)
     if a == 0:
+        print("User ref Id sent")
         u.set_password(UD["password"])
         u.genRefID()
         db.session.add(u)
@@ -27,7 +28,7 @@ def postSignUp():
         if a == 4:
             err = "Enter valid Referal Code"
         print(jsonify({'error': err}))       
-        return jsonify({'error': err})
+        return jsonify({'error': a})
 
 @app.route('/api/postlogin', methods=['GET','POST'])
 def postLogin():
@@ -66,5 +67,42 @@ def accountdeets():
         "email": user.email,
         "contactnum": user.contactnum,
         "torefID": user.torefID,
+        "hasPaid": user.hasPaid,
     })
 
+@app.route('/api/paysuccess', methods=['GET','POST'])
+def paysuccess():
+    currentUserEmail = request.json["CUE"]['currentUserEmail']
+    user = User.query.filter_by(email=currentUserEmail).first()
+    if user is not None:
+        print("Pay success for :", user.firstname)
+        user.hasPaid = 1
+        db.session.commit()
+        return jsonify({
+            "payment" : "success"
+        })
+    else:
+        print("Tried to access payment without logging in")
+        return jsonify({
+            "payment" : "notloggedin"
+        })
+
+@app.route('/api/checkpaid', methods=['GET','POST'])
+def checkpaid():
+    currentUserEmail = request.json["CUE"]['currentUserEmail']
+    user = User.query.filter_by(email=currentUserEmail).first()
+    if user is None:
+        print("No user")
+        return jsonify({
+            "checkpaid" : "nouser"
+        })
+    elif user.hasPaid == 1:
+        print("Payment verified")
+        return jsonify({
+            "checkpaid" : "paid"
+        })
+    else:
+        print("Not paid")
+        return jsonify({
+            "checkpaid" : "unpaid"
+        })
