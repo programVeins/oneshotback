@@ -113,6 +113,8 @@ def checkpaid():
 
 @app.route('/api/admin')
 def admin():
+    print("Admin requested...")
+    print()
     users = User.query.all()
     usersResponse = []
     for user in users:
@@ -126,5 +128,7 @@ def admin():
         if '_sa_instance_state' in d:
             del d['_sa_instance_state']
         usersResponse.append(d)
-        
+        print("User: ", user.firstname, " appended")
+        print()
+    print("End Admin Request...")    
     return jsonify(usersResponse)
