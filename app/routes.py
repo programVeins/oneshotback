@@ -126,11 +126,11 @@ def admin():
         for item in referees:
             x = item.__dict__
             refereesResponse.append(x['email'])
-            print()
             print(x['email'])
-        if len(refereesResponse) is 0:
             print()
+        if len(refereesResponse) is 0:
             print("None")
+            print()
         d = user.__dict__
         d['referees'] = refereesResponse
         print("Added referees key...")
@@ -138,8 +138,10 @@ def admin():
             print("Found sa instance of", user)
             del d['_sa_instance_state']
             print("Deleted sa instance of ", user)
+            print()
         usersResponse.append(d)
         print("User: ", user.firstname, " appended")
+        print()
         print()
     print("End Admin Request...")    
     return jsonify(usersResponse)
