@@ -16,6 +16,9 @@ class User(UserMixin, db.Model):
     hasPaid = db.Column(db.Integer, index=True, unique=False)
     numberOfReferals = db.Column(db.Integer, index=True, unique=False)
     isAdmin = db.Column(db.Integer, index=True, unique=False)
+    paynum = db.Column(db.String(64), index=True, unique=False)
+    bname = db.Column(db.String(128), index=True, unique=False)
+    ifsc = db.Column(db.String(64), index=True, unique=False)
     
     def genRefID(self):
         self.torefID = refGen(8)

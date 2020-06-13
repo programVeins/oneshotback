@@ -32,6 +32,16 @@ def postSignUp():
         print(jsonify({'error': err}))       
         return jsonify({'error': a})
 
+@app.route('/api/postpay', methods=['GET','POST'])
+def postpay():
+    UD = request.json["userData"]
+    user = User.query.filter_by(email=UD["email"]).first()
+    user.paynum = UD["paynum"]
+    user.bname = UD["bname"]
+    user.ifsc = UD["ifsc"]
+    db.session.commit()
+    return jsonify({'paychoice':'done'})
+
 @app.route('/api/postlogin', methods=['GET','POST'])
 def postLogin():
     UD = request.json["userData"]
@@ -133,3 +143,4 @@ def admin():
         print()
     print("End Admin Request...")    
     return jsonify(usersResponse)
+
