@@ -116,8 +116,15 @@ def admin():
     users = User.query.all()
     usersResponse = []
     for user in users:
+        referees = User.query.filter_by(fromrefID = user.torefID).all()
+        refereesResponse = []
+        for item in referees:
+            x = item.__dict__
+            refereesResponse.append(x['email'])
         d = user.__dict__
+        d['referees'] = refereesResponse
         if '_sa_instance_state' in d:
             del d['_sa_instance_state']
         usersResponse.append(d)
+        
     return jsonify(usersResponse)
