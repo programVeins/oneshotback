@@ -117,16 +117,27 @@ def admin():
     print()
     users = User.query.all()
     usersResponse = []
+    print("Users Retrived...")
+    print()
     for user in users:
         referees = User.query.filter_by(fromrefID = user.torefID).all()
         refereesResponse = []
+        print("Referees of ", user, " are :")
         for item in referees:
             x = item.__dict__
             refereesResponse.append(x['email'])
+            print()
+            print(x['email'])
+        if len(refereesResponse) is 0:
+            print()
+            print("None")
         d = user.__dict__
         d['referees'] = refereesResponse
+        print("Added referees key...")
         if '_sa_instance_state' in d:
+            print("Found sa instance of", user)
             del d['_sa_instance_state']
+            print("Deleted sa instance of ", user)
         usersResponse.append(d)
         print("User: ", user.firstname, " appended")
         print()
