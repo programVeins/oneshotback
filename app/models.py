@@ -14,6 +14,8 @@ class User(UserMixin, db.Model):
     password_hash = db.Column(db.String(128))
     contactnum = db.Column(db.Integer, index=True, unique=True)
     hasPaid = db.Column(db.Integer, index=True, unique=False)
+    numberOfReferals = db.Column(db.Integer, index=True, unique=False)
+    isAdmin = db.Column(db.Integer, index=True, unique=False)
     
     def genRefID(self):
         self.torefID = refGen(8)

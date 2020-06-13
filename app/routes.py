@@ -8,7 +8,9 @@ from flask_login import current_user, login_user, logout_user
 @app.route('/api/postsignup', methods=['GET','POST'])
 def postSignUp():
     UD = request.json["userData"]
-    u = User(firstname = UD["firstname"], lastname = UD["lastname"], email = UD["email"], contactnum = UD["contactnum"], fromrefID = UD["fromrefID"], hasPaid = 0)
+    u = User(firstname = UD["firstname"], lastname = UD["lastname"], email = UD["email"],
+    contactnum = UD["contactnum"], fromrefID = UD["fromrefID"], hasPaid = 0,
+    numberOfReferals = 0, isAdmin = 0)
     a = validate(u.email, u.contactnum, u.fromrefID)
     print(u)
     if a == 0:
@@ -68,6 +70,8 @@ def accountdeets():
         "contactnum": user.contactnum,
         "torefID": user.torefID,
         "hasPaid": user.hasPaid,
+        "numberOfReferals": user.numberOfReferals,
+        "isAdmin": user.isAdmin
     })
 
 @app.route('/api/paysuccess', methods=['GET','POST'])
@@ -106,3 +110,14 @@ def checkpaid():
         return jsonify({
             "checkpaid" : "unpaid"
         })
+
+@app.route('/api/admin')
+def admin():
+    users = User.query.all()
+    usersResponse = []
+    for user in users:
+        d = user.__dict__
+        if '_sa_instance_state' in d:
+            del d['_sa_instance_state']
+        usersResponse.append(d)
+    return jsonify(usersResponse)

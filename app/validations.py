@@ -22,6 +22,9 @@ def validate(em, cn, fromref):
             print('Enter valid Referal Code')
             return 4
         else:
+            if usx.numberOfReferals is None:
+                usx.numberOfReferals = 0
+            usx.numberOfReferals += 1
             print('Validated 0, Referal code given by user: ', usx.firstname)
             return 0
     else:
