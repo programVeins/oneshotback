@@ -124,9 +124,8 @@ def admin():
         refereesResponse = []
         print("Referees of ", user, " are :")
         for item in referees:
-            x = item.__dict__
-            refereesResponse.append(x['email'])
-            print(x['email'])
+            refereesResponse.append(item.email)
+            print(item.email)
             print()
         if len(refereesResponse) is 0:
             print("None")
