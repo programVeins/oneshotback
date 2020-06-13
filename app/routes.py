@@ -121,7 +121,6 @@ def admin():
     print()
     for user in users:
         d = user.__dict__
-        d['referees'] = refereesResponse
         print("Added referees key...")
         if '_sa_instance_state' in d:
             print("Found sa instance of", user)
