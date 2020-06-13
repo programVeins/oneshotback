@@ -120,16 +120,6 @@ def admin():
     print("Users Retrived...")
     print()
     for user in users:
-        referees = User.query.filter_by(fromrefID = user.torefID).all()
-        refereesResponse = []
-        print("Referees of ", user, " are :")
-        for item in referees:
-            refereesResponse.append(item.email)
-            print(item.email)
-            print()
-        if len(refereesResponse) is 0:
-            print("None")
-            print()
         d = user.__dict__
         d['referees'] = refereesResponse
         print("Added referees key...")
