@@ -144,3 +144,6 @@ def admin():
     print("End Admin Request...")    
     return jsonify(usersResponse)
 
+@app.route('/api/load')
+def load():
+    return jsonify({"load": "success"})
