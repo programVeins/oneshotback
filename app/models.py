@@ -12,7 +12,7 @@ class User(UserMixin, db.Model):
     fromrefID = db.Column(db.String(64), index=True, unique=False)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
-    contactnum = db.Column(db.Integer, index=True, unique=True)
+    contactnum = db.Column(db.String(64), index=True, unique=True)
     hasPaid = db.Column(db.Integer, index=True, unique=False)
     numberOfReferals = db.Column(db.Integer, index=True, unique=False)
     isAdmin = db.Column(db.Integer, index=True, unique=False)
