@@ -92,7 +92,7 @@ def paysuccess():
     if user is not None:
         print("Pay success for :", user.firstname)
         user.hasPaid = 1
-        user.datePaid = datetime.utcnow
+        user.datePaid = datetime.utcnow()
         db.session.commit()
         return jsonify({
             "payment" : "success"
