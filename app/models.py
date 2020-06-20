@@ -19,6 +19,7 @@ class User(UserMixin, db.Model):
     paynum = db.Column(db.String(64), index=True, unique=False)
     bname = db.Column(db.String(128), index=True, unique=False)
     ifsc = db.Column(db.String(64), index=True, unique=False)
+    datePaid = db.Column(db.DateTime, index=True)
     
     def genRefID(self):
         self.torefID = refGen(8)

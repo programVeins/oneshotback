@@ -4,6 +4,7 @@ from app.models import User
 from app.validations import validate
 from app.login import logincheck
 from flask_login import current_user, login_user, logout_user
+from datetime import datetime
 
 @app.route('/api/postsignup', methods=['GET','POST'])
 def postSignUp():
@@ -91,6 +92,7 @@ def paysuccess():
     if user is not None:
         print("Pay success for :", user.firstname)
         user.hasPaid = 1
+        user.datePaid = datetime.utcnow
         db.session.commit()
         return jsonify({
             "payment" : "success"
