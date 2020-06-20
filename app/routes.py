@@ -82,7 +82,8 @@ def accountdeets():
         "torefID": user.torefID,
         "hasPaid": user.hasPaid,
         "numberOfReferals": user.numberOfReferals,
-        "isAdmin": user.isAdmin
+        "isAdmin": user.isAdmin,
+        "paynum": user.paynum,
     })
 
 @app.route('/api/paysuccess', methods=['GET','POST'])
