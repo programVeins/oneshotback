@@ -94,6 +94,9 @@ def paysuccess():
         print("Pay success for :", user.firstname)
         user.hasPaid = 1
         user.datePaid = datetime.utcnow()
+        usxx = User.query.filter_by(torefID=user.fromrefID).first()
+        if usxx is not None:
+            usxx.numberOfReferals += 1
         db.session.commit()
         return jsonify({
             "payment" : "success"
