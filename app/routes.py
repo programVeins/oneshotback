@@ -91,7 +91,7 @@ def paysuccess():
     currentUserEmail = request.json["CUE"]['currentUserEmail']
     user = User.query.filter_by(email=currentUserEmail).first()
     if user is not None:
-        is user.hasPaid != 1:
+        is user.hasPaid is not 1:
             print("Pay success for :", user.firstname)
             user.hasPaid = 1
             user.datePaid = datetime.utcnow()
