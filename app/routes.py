@@ -91,16 +91,22 @@ def paysuccess():
     currentUserEmail = request.json["CUE"]['currentUserEmail']
     user = User.query.filter_by(email=currentUserEmail).first()
     if user is not None:
-        print("Pay success for :", user.firstname)
-        user.hasPaid = 1
-        user.datePaid = datetime.utcnow()
-        usxx = User.query.filter_by(torefID=user.fromrefID).first()
-        if usxx is not None:
-            usxx.numberOfReferals += 1
-        db.session.commit()
-        return jsonify({
-            "payment" : "success"
-        })
+        is user.hasPaid != 1:
+            print("Pay success for :", user.firstname)
+            user.hasPaid = 1
+            user.datePaid = datetime.utcnow()
+            usxx = User.query.filter_by(torefID=user.fromrefID).first()
+            if usxx is not None:
+                usxx.numberOfReferals += 1
+            db.session.commit()
+            return jsonify({
+                "payment" : "success"
+            })
+        else:
+            print("User tried paymentsuccess, but user already paid")
+            return jsonify({
+                "payment" : "notloggedin"
+            })
     else:
         print("Tried to access payment without logging in")
         return jsonify({
